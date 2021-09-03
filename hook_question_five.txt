@@ -1,0 +1,77 @@
+﻿// hook cookie,寻找cookie被赋值的地点--->试图找到cookie的加密生成方式
+(
+	function(){
+		'use strict';
+		Object.defineProperty(
+			document, 'cookie', {
+				set: function(cookie){
+					if (cookie.indexOf('RM4hZBv0dDon443M') != -1){
+						debugger;
+					}
+					return cookie;
+				}
+			}
+		)
+	}
+)();
+
+
+// cookie在赋值前已经生成了，存放在window的_$ss属性中 ， _$8K是window的另一引用名
+_$8K['_$ss'] = uCKM0lv8XgGrRrAZTa6tZTC3+iNnPdYU6fpMaid2fWa49WRwUlbmUfR1RAdoMbrCX6TjnG7Pe8FU5dcPxxVsl9ILRqgF3gREX/wwoTCALYBlu7f7fRsI4IvxQKLpVOBixN4R1L0omWrY/vnrL04p8VX9Yu6jei2pU+Yyl2PVfaYGM/hVKJ30Uqfv6E5C7qgBy759rjgItQ7CVRd7P4Cmnq04fZYioHelVw/REl/++Hw=
+
+
+
+// hook window的_$ss属性被赋值的地方，寻找加密算法
+(
+	function(){
+		Object.defineProperty(window, '_$ss', {
+			set: function(cookie){
+				debugger;
+				console.log(cookie);
+				return cookie;
+			}
+		});
+	}
+)();
+
+
+// hook window _$pr 属性赋值的地方，看看赋值的都是些什么东西
+(
+	function(){
+		Object.defineProperty(window, '_$pr', {
+			get: function(hashvalue){
+				debugger;
+				console.log(hashvalue);
+				return hashvalue;
+			}
+		});
+	}
+)();
+
+
+// hook b函数，打印b函数加密前和加密后的内容分别是什么
+(
+	function(){
+		var new_g = g;
+		g = function(e){
+		var retval = new_g(e);
+			console.log('加密前的时间戳为：', e, '加密后的时间戳为：', retval);
+			//console.log('加密后的时间戳为：', retval);
+			return retval;
+		}
+	}
+)();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
